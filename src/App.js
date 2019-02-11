@@ -1,28 +1,53 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import useFiler from "./hooks/useFiler";
+import { Route, Redirect } from "react-router-dom";
+import Files from "./pages/Files";
+import Edit from "./pages/Edit";
+import "normalize.css";
+import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const App = ({ history }) => {
+  const [
+    files,
+    { add: addFile, remove: removeFile, update: updateFile }
+  ] = useFiler("FILES");
+
+  const startNewFile = () => {
+    const newFileId = addFile({
+      title: "",
+      blocks: []
+    });
+    history.push(`/edit/${newFileId}`);
+  };
+
+  return (
+    <div className="App">
+      <Route exact path="/" render={() => <Redirect to="/files" />} />
+      <Route
+        exact
+        path="/files"
+        render={props => (
+          <Files {...props} files={files} onNewFileRequested={startNewFile} />
+        )}
+      />
+      <Route
+        exact
+        path="/edit/:fileId"
+        render={props => {
+          const file = files[props.match.params.fileId];
+          return (
+            <Edit
+              {...props}
+              file={file}
+              onFileEdited={newFile => {
+                updateFile(file.id, newFile);
+              }}
+            />
+          );
+        }}
+      />
+    </div>
+  );
+};
 
 export default App;
