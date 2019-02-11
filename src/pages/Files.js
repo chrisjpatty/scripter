@@ -13,7 +13,7 @@ export default ({onNewFileRequested, files={}, history}) => {
     <Wrapper>
       {
         orderedFiles.map(file => (
-          <FileButton key={file.id} onClick={() => {
+          <FileButton title={file.data.title} key={file.id} onClick={() => {
             history.push(`/edit/${file.id}`)
           }} />
         ))
@@ -28,5 +28,6 @@ export default ({onNewFileRequested, files={}, history}) => {
 const Wrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  flexWrap: 'wrap'
+  flexWrap: 'wrap',
+  padding: '1vw'
 })

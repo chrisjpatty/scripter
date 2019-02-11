@@ -1,24 +1,28 @@
 import { useEffect } from 'react'
 
-export default ({keyCode, action}) => {
+export default ({keyCode, action, disabled}) => {
   useEffect(() => {
-    enable()
+    if(!disabled){
+      enable()
+    }
     return () => {
       disable()
     }
-  }, [keyCode])
+  })
 
   const enable = () => {
-    document.addEventListener('keyup', handleAction)
+    document.addEventListener('keydown', handleAction)
   }
 
   const disable = () => {
-    document.removeEventListener('keyup', handleAction)
+    document.removeEventListener('keydown', handleAction)
   }
 
   const handleAction = e => {
-    e.preventDefault()
-    action(e)
+    if(e.keyCode === keyCode){
+      e.preventDefault()
+      action(e)
+    }
   }
 
   return {enable, disable}

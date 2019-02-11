@@ -4,7 +4,7 @@ import EditBox from "./EditBox";
 import Animator from "./Animator";
 import { Spring } from 'react-spring/renderprops'
 
-export default ({ getBoxRect, animationCoordinates, onClosed }) => {
+export default ({ getBoxRect, animationCoordinates, onClosed, text, onChange }) => {
   const [animatingIn, setAnimatingIn] = useState(false);
   const [animatedIn, setAnimatedIn] = useState(false);
   const [animatingOut, setAnimatingOut] = useState(false);
@@ -18,6 +18,10 @@ export default ({ getBoxRect, animationCoordinates, onClosed }) => {
     },
     animationCoordinates === null ? false : true
   );
+
+  useEffect(() => {
+    editBoxRef.current.focus()
+  }, [])
 
   const handleAnimatedIn = () => {
     setAnimatedIn(true);
@@ -46,7 +50,10 @@ export default ({ getBoxRect, animationCoordinates, onClosed }) => {
           visible={animatingIn || animatingOut}
         />
       )}
-      <EditBox visible={animatedIn && !animatingOut} innerRef={editBoxRef} />
+      <EditBox visible={animatedIn && !animatingOut} text={text} onChange={value => {
+        onChange(value)
+        startAnimateOut()
+      }} innerRef={editBoxRef} />
       <Spring from={{opacity: 0}} to={{opacity: animatingOut ? 0 : 1}}>
         {
           style => (

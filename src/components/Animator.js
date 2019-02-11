@@ -12,14 +12,6 @@ export default ({ coordinates: { from, to }, animatingOut, onAnimatedOut, animat
   const leftThreshold = to.left + 3
   const rested = useRef(false)
 
-  // const handleRest = () => {
-  //   if(animatingOut){
-  //     onAnimatedOut()
-  //   }else{
-  //     onAnimatedIn()
-  //   }
-  // }
-
   useEffect(() => {
     rested.current = false
   }, [animatingOut, animatingIn])
@@ -31,7 +23,6 @@ export default ({ coordinates: { from, to }, animatingOut, onAnimatedOut, animat
         rested.current = true
       }
     }else{
-      // console.log(rested.current, style.left, from.left);
       if(!rested.current && style.left >= (from.left - 2)){
         onAnimatedOut()
         rested.current = true
@@ -70,7 +61,8 @@ const Box = styled("div")(
     background: "#ffffff",
     borderRadius: 5,
     zIndex: 5,
-    transition: 'opacity 200ms'
+    transition: 'opacity 200ms',
+    willChange: 'left, top, width, height'
   },
   ({ theme }) => ({
     borderTop: `1px solid rgb(228, 228, 228)`,

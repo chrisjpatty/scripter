@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import styled from '@emotion/styled'
 
-export default ({text, id, onEditRequested, editing}) => {
+export default ({text, id, onEditRequested, editing, getBlockRect}) => {
   const innerWrapperRef = useRef(null)
 
   const startEdit = () => {
@@ -11,6 +11,7 @@ export default ({text, id, onEditRequested, editing}) => {
     })
   }
 
+  getBlockRect.current = startEdit;
   return (
     <Wrapper style={{opacity: editing ? 0 : 1}}>
       <InnerWrapper ref={innerWrapperRef} onClick={startEdit}>
