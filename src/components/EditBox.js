@@ -16,7 +16,7 @@ const Wrapper = styled('div')({
   maxWidth: 600,
   maxHeight: 400,
   display: 'flex',
-  transition: 'opacity 200ms'
+  transition: 'opacity 100ms'
 })
 
 const TextArea = styled('textarea')({
@@ -25,7 +25,8 @@ const TextArea = styled('textarea')({
   background: '#ffffff',
   borderRadius: 5,
   border: 'none',
-  borderTop: `1px solid rgb(228, 228, 228)`
+  borderTop: `1px solid rgb(228, 228, 228)`,
+  zIndex: 10
 }, ({theme}) => ({
   boxShadow: theme.shadows.high
 }))

@@ -9,7 +9,7 @@ const SPRING_CONFIG = {
 }
 
 export default ({ coordinates: { from, to }, animatingOut, onAnimatedOut, animatingIn, onAnimatedIn, visible }) => {
-  const leftThreshold = to.left - 2
+  const leftThreshold = to.left + 3
   const rested = useRef(false)
 
   // const handleRest = () => {
