@@ -29,7 +29,7 @@ export default key => {
       [id]: {
         ...files[id],
         modified: Date.now(),
-        data
+        data: typeof data === 'function' ? data(files[id]) : data
       }
     }))
   }

@@ -3,22 +3,34 @@ import styled from "@emotion/styled";
 import Blocks from "../components/Blocks";
 import Toolbar from "../components/Toolbar";
 
+export const speakersContext = React.createContext([])
+export const setSpeakersContext = React.createContext(null)
+export const setShortcutsDisabledContext = React.createContext(false)
+
 export default ({ file: { data: file }, onFileEdited }) => {
   const [titleFocused, setTitleFocused] = useState(false);
+  const [shortcutsDisabled, setShortcutsDisabled] = useState(false)
 
   const updateBlocks = blocks => {
-    onFileEdited({
-      ...file,
+    onFileEdited(file => ({
+      ...file.data,
       blocks
-    });
+    }));
   };
 
   const setTitle = title => {
-    onFileEdited({
-      ...file,
+    onFileEdited(file => ({
+      ...file.data,
       title
-    });
+    }));
   };
+
+  const setSpeakers = speakers => {
+    onFileEdited(file => ({
+      ...file.data,
+      speakers
+    }))
+  }
 
   return (
     <PageWrapper>
@@ -32,11 +44,17 @@ export default ({ file: { data: file }, onFileEdited }) => {
           setTitleFocused(false);
         }}
       />
-      <Blocks
-        shortcutsDisabled={titleFocused}
-        blocks={file.blocks}
-        onBlocksChanged={updateBlocks}
-      />
+      <speakersContext.Provider value={file.speakers || []}>
+        <setSpeakersContext.Provider value={setSpeakers}>
+          <setShortcutsDisabledContext.Provider value={setShortcutsDisabled}>
+            <Blocks
+              shortcutsDisabled={titleFocused || shortcutsDisabled}
+              blocks={file.blocks}
+              onBlocksChanged={updateBlocks}
+            />
+          </setShortcutsDisabledContext.Provider>
+        </setSpeakersContext.Provider>
+      </speakersContext.Provider>
     </PageWrapper>
   );
 };

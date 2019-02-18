@@ -8,7 +8,7 @@ import { objToArr } from '../utilities'
 
 export default ({onNewFileRequested, files={}, history}) => {
   const orderedFiles = orderBy(objToArr(files), ['created'])
-  console.log(orderedFiles);
+  // console.log(orderedFiles);
   return (
     <Wrapper>
       {

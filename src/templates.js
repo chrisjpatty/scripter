@@ -2,5 +2,6 @@ import shortid from 'shortid'
 
 export const getNewBlock = () => ({
   text: '',
-  id: shortid.generate()
+  id: shortid.generate(),
+  speakerId: null
 })

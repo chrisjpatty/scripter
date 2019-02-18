@@ -1,4 +1,5 @@
 import React from "react";
+import { css } from '@emotion/core'
 import styled from "@emotion/styled";
 import { Link } from 'react-router-dom'
 import { Back as BackIcon } from '@chrisjpatty/tang-ui-icons'
@@ -6,11 +7,13 @@ import { Back as BackIcon } from '@chrisjpatty/tang-ui-icons'
 export default ({ title, onChange, onTitleFocus, onTitleBlur }) => {
   return (
     <Wrapper>
-      <Link to='/files' >
-        <IconWrapper>
-          <BackIcon/>
-        </IconWrapper>
-      </Link>
+      <LinkWrapper>
+        <Link className={css(linkStyles).name} to='/files' >
+          <IconWrapper>
+            <BackIcon/>
+          </IconWrapper>
+        </Link>
+      </LinkWrapper>
       <InputWrapper>
         <TitleInput
           type="text"
@@ -23,6 +26,7 @@ export default ({ title, onChange, onTitleFocus, onTitleBlur }) => {
           onBlur={onTitleBlur}
         />
       </InputWrapper>
+      {/* <SpeakerPicker /> */}
     </Wrapper>
   );
 };
@@ -30,11 +34,11 @@ export default ({ title, onChange, onTitleFocus, onTitleBlur }) => {
 const Wrapper = styled("div")({
   width: "100%",
   display: "flex",
-  background: '#ffffff',
+  // background: '#ffffff',
   flexDirection: 'row'
 }, ({theme}) => ({
   // boxShadow: theme.shadows.insetReverse.low,
-  borderBottom: `1px solid #ffffff`
+  // borderBottom: `1px solid #ffffff`
 }));
 
 const InputWrapper = styled("div")({
@@ -46,13 +50,13 @@ const TitleInput = styled("input")({
   height: 70,
   padding: 20,
   paddingLeft: 5,
-  fontSize: '4vw',
+  fontSize: 35,
   fontWeight: 300,
   background: 'none',
   border: 'none',
   outline: 'none'
 }, ({theme}) => ({
-  color: theme.gray.medium,
+  color: theme.gray.mediumDark,
   '&:focus': {
     color: theme.gray.mediumDark
     // background: 'rgba(0,0,0,.05)'
@@ -62,24 +66,38 @@ const TitleInput = styled("input")({
   }
 }));
 
-const IconWrapper = styled('span')({
+const LinkWrapper = styled('div')({
   height: 70,
-  width: 60,
-  fontSize: 40,
   padding: 10,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+})
+
+const IconWrapper = styled('div')({
+  width: 46,
+  height: 46,
+  background: '#ffffff',
+  fontSize: 40,
+  padding: 7,
   fontWeight: 600,
   lineHeight: 0,
-  background: 'none',
   border: 'none',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  borderRadius: '100%',
   '& svg': {
     width: '100%'
   }
 }, ({theme}) => ({
-  color: theme.gray.light,
+  color: theme.gray.medium,
+  boxShadow: theme.shadows.low,
   '&:hover': {
-    color: theme.gray.medium
+    boxShadow: theme.shadows.mid
   }
 }))
+
+const linkStyles = {
+  borderRadius: '100%'
+}

@@ -18,5 +18,8 @@ const Button = styled('button')({
   '&:hover': {
     background: theme.primary.light
   },
+  '&:disabled': {
+    background: theme.gray.extraLight
+  },
   ...extraStyles
 }))

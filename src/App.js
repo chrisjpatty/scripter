@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useFiler from "./hooks/useFiler";
 import { Route, Redirect } from "react-router-dom";
 import Files from "./pages/Files";
@@ -15,7 +15,8 @@ const App = ({ history }) => {
   const startNewFile = () => {
     const newFileId = addFile({
       title: "",
-      blocks: []
+      blocks: [],
+      speakers: []
     });
     history.push(`/edit/${newFileId}`);
   };
@@ -40,7 +41,9 @@ const App = ({ history }) => {
               {...props}
               file={file}
               onFileEdited={newFile => {
-                updateFile(file.id, newFile);
+                updateFile(file.id, prev =>
+                  typeof newFile === "function" ? newFile(prev) : newFile
+                );
               }}
             />
           );
