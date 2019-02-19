@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import useSpeakersContext from "../hooks/useSpeakersContext";
 import useOnClickOutside from "../hooks/useOnClickOutside";
@@ -14,6 +14,8 @@ export default ({
   onSpeakerSelected
 }) => {
   const [addingSpeaker, setAddingSpeaker] = useState(false);
+  const [didAddSpeaker, setDidAddSpeaker] = useState(false);
+  const [addedSpeakerCache, setAddedSpeakerCache] = useState(null);
   const insideRef = useOnClickOutside(e => {
     onRequestClose(e.target.classList.contains("add-speaker"));
   });
@@ -25,13 +27,22 @@ export default ({
   const toggleSpeakerAdd = override =>
     setAddingSpeaker(s => (override === undefined ? override : !s));
 
+  useEffect(() => {
+    if(didAddSpeaker){
+      onSpeakerSelected(addedSpeakerCache);
+      setDidAddSpeaker(false)
+      setAddedSpeakerCache(null)
+    }
+  }, [speakers])
+
   const addNewSpeaker = speaker => {
     const newSpeaker = {
       ...speaker,
       id: shortid.generate()
     };
+    setAddedSpeakerCache(newSpeaker.id);
+    setDidAddSpeaker(true)
     setGlobalSpeakers([...speakers, newSpeaker]);
-    onSpeakerSelected(newSpeaker.id);
     toggleSpeakerAdd()
     onRequestClose();
   };

@@ -26,6 +26,7 @@ export default ({ isNew, onSubmit, onNewSubmit }) => {
         ref={inputRef}
         type="text"
         placeholder="Speaker Name"
+        contentEditable={false}
       />
       <ColorSelectorWrapper>
         <ColorSelector
@@ -102,5 +103,5 @@ const ButtonwWrapper = styled("div")({
 const PreviewWrapper = styled("div")({
   position: "absolute",
   left: -55,
-  top: -2
+  top: 10
 });

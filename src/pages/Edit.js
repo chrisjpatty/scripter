@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Blocks from "../components/Blocks";
 import Toolbar from "../components/Toolbar";
+import RichEditor from '../components/RichEditor/RichEditor'
 
 export const speakersContext = React.createContext([])
 export const setSpeakersContext = React.createContext(null)
@@ -47,11 +48,12 @@ export default ({ file: { data: file }, onFileEdited }) => {
       <speakersContext.Provider value={file.speakers || []}>
         <setSpeakersContext.Provider value={setSpeakers}>
           <setShortcutsDisabledContext.Provider value={setShortcutsDisabled}>
-            <Blocks
+            {/* <Blocks
               shortcutsDisabled={titleFocused || shortcutsDisabled}
               blocks={file.blocks}
               onBlocksChanged={updateBlocks}
-            />
+            /> */}
+            <RichEditor />
           </setShortcutsDisabledContext.Provider>
         </setSpeakersContext.Provider>
       </speakersContext.Provider>

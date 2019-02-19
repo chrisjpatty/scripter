@@ -22,7 +22,7 @@ export default ({
     }
   };
   return (
-    <Wrapper {...props}>
+    <Wrapper {...props} contentEditable={false}>
       <InnerWrapper
         interactive={interactive}
         extraStyles={innerCSS}
@@ -31,8 +31,9 @@ export default ({
         style={{
           background: COLORS[colorId].color
         }}
+        contentEditable={false}
       >
-        <Center>{parseCharacter().toUpperCase()}</Center>
+        <Center contentEditable={false}>{parseCharacter().toUpperCase()}</Center>
       </InnerWrapper>
     </Wrapper>
   );
@@ -44,8 +45,8 @@ const Wrapper = styled("div")({
 
 const InnerWrapper = styled("div")(
   {
-    width: 38,
-    height: 38,
+    width: 34,
+    height: 34,
     borderRadius: "100%",
     background: COLORS[18].color,
     display: "flex",

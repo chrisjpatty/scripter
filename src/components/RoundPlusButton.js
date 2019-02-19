@@ -4,18 +4,18 @@ import { Center } from '@chrisjpatty/tang-ui'
 import { Plus as PlusIcon } from '@chrisjpatty/tang-ui-icons'
 
 export default props => (
-  <Wrapper {...props}>
-    <Center>
-      <PlusIcon />
+  <Wrapper {...props} contentEditable={false}>
+    <Center contentEditable={false}>
+      <PlusIcon contentEditable={false} />
     </Center>
   </Wrapper>
 )
 
 const Wrapper = styled('button')({
-  width: 38,
-  height: 38,
+  width: 34,
+  height: 34,
   borderRadius: '100%',
-  border: '3px solid',
+  border: '1px solid',
   margin: 5,
   background: 'none',
   outline: 'none',
